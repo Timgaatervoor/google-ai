@@ -66,6 +66,20 @@ function aistudioMediaPlugin(): Plugin {
 }
 // LINT.ThenChange(//depot/google3/java/com/google/alkali/boq/makersuite/applet_dev_service/templates/initializers/react_theme/vite.config.ts:aistudio_media_plugin)
 
+function spaFallbackPlugin(): Plugin {
+  return {
+    name: 'spa-fallback-404',
+    closeBundle() {
+      const distDir = path.resolve(__dirname, 'dist');
+      const indexPath = path.join(distDir, 'index.html');
+      const fallbackPath = path.join(distDir, '404.html');
+      if (fs.existsSync(indexPath) && !fs.existsSync(fallbackPath)) {
+        fs.copyFileSync(indexPath, fallbackPath);
+      }
+    },
+  };
+}
+
 export default defineConfig(() => {
   const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1];
   const base = process.env.GITHUB_ACTIONS && repositoryName ? `/${repositoryName}/` : '/';
@@ -76,6 +90,7 @@ export default defineConfig(() => {
       stamhoofdLocalPlugin(),
       react(),
       tailwindcss(),
+      spaFallbackPlugin(),
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: ['apple-touch-icon.png', 'icon.svg', 'pwa-192x192.png', 'pwa-512x512.png'],
