@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* Theme system: High-contrast Light Mode overrides */
+html.theme-light {
+  color-scheme: light;
+}
+
+html.theme-light body,
+html.theme-light .bg-slate-950 {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+html.theme-light .bg-slate-900 {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+}
+
+html.theme-light .bg-slate-850 {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.theme-light .bg-slate-800 {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.theme-light .text-white {
+  color: #0f172a !important;
+}
+
+html.theme-light .text-slate-100,
+html.theme-light .text-slate-200 {
+  color: #1e293b !important;
+}
+
+html.theme-light .text-slate-300 {
+  color: #334155 !important;
+}
+
+html.theme-light .text-slate-400 {
+  color: #64748b !important;
+}
+
+html.theme-light .text-slate-500 {
+  color: #64748b !important;
+}
+
+html.theme-light .border-slate-800,
+html.theme-light .border-slate-750,
+html.theme-light .border-slate-700 {
+  border-color: #cbd5e1 !important;
+}
+
+html.theme-light .divide-slate-800\/60 > :not([hidden]) ~ :not([hidden]),
+html.theme-light .divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e2e8f0 !important;
+}
+
+html.theme-light .hover\:bg-slate-850\/80:hover,
+html.theme-light .hover\:bg-slate-850:hover {
+  background-color: #f1f5f9 !important;
+}
+
+html.theme-light .hover\:bg-slate-750:hover,
+html.theme-light .hover\:bg-slate-700:hover {
+  background-color: #e2e8f0 !important;
+}
+
+html.theme-light input,
+html.theme-light select,
+html.theme-light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.theme-light input::placeholder {
+  color: #94a3b8 !important;
+}
+
+@media print {
+  body:has(.race-print-dialog) > :not(.race-print-dialog) { display: none !important; }
+  .race-print-dialog, .race-print-dialog > div { display: block !important; position: static !important; max-height: none !important; overflow: visible !important; }
+  .race-print-dialog thead { display: table-header-group; }
+  .race-print-dialog tr { break-inside: avoid; }
+}

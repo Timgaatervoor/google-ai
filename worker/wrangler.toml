@@ -1,0 +1,9 @@
+name = "biathlon-stamhoofd"
+main = "index.ts"
+compatibility_date = "2026-09-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://timgaatervoor.github.io"
+ORGANIZATION_ID = "af201d93-dcd6-4cfe-bfc7-ed3d2a209236"
+STAMHOOFD_VERSION = "v417"
+# Secrets: wrangler secret put STAMHOOFD_API_KEY / SYNC_ACCESS_TOKEN

@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "Biathlon Tijdregistratie",
+  "short_name": "BiathlonTime",
+  "description": "Professioneel offline-first tijdregistratiesysteem voor biathlon",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

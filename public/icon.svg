@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="108" fill="#0f172a" />
+  <circle cx="256" cy="256" r="210" stroke="#f59e0b" stroke-width="12" stroke-dasharray="8 8" opacity="0.6"/>
+  
+  <!-- Biathlon Target Ring (Outer white, inner black, center amber) -->
+  <circle cx="256" cy="256" r="150" fill="#1e293b" stroke="#38bdf8" stroke-width="8"/>
+  <circle cx="256" cy="256" r="100" fill="#0f172a" stroke="#f59e0b" stroke-width="6"/>
+  <circle cx="256" cy="256" r="50" fill="#f59e0b" />
+  
+  <!-- Crosshairs -->
+  <line x1="256" y1="56" x2="256" y2="136" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+  <line x1="256" y1="376" x2="256" y2="456" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+  <line x1="56" y1="256" x2="136" y2="256" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+  <line x1="376" y1="256" x2="456" y2="256" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Dynamic Running Swoosh -->
+  <path d="M120 380 Q 256 460 392 380" stroke="#10b981" stroke-width="14" stroke-linecap="round"/>
+  
+  <!-- 5 Targets indicator (Biathlon classic 5 targets) -->
+  <circle cx="166" cy="190" r="16" fill="#10b981"/>
+  <circle cx="211" cy="190" r="16" fill="#10b981"/>
+  <circle cx="256" cy="190" r="16" fill="#10b981"/>
+  <circle cx="301" cy="190" r="16" fill="#10b981"/>
+  <circle cx="346" cy="190" r="16" fill="#ef4444"/>
+</svg>

@@ -1,0 +1,21 @@
+/* Scope scaling to the kiosk. Explicit child sizes must scale along with the table. */
+.leaderboard-kiosk {
+  --kiosk-scale: 1;
+  font-size: calc(0.75rem * var(--kiosk-scale));
+}
+.leaderboard-kiosk[data-text-scale='large'] { --kiosk-scale: 1.5; }
+.leaderboard-kiosk[data-text-scale='extra-large'] { --kiosk-scale: 2; }
+.leaderboard-kiosk .text-xs { font-size: calc(0.75rem * var(--kiosk-scale)); line-height: 1.5; }
+.leaderboard-kiosk .text-sm { font-size: calc(0.875rem * var(--kiosk-scale)); line-height: 1.5; }
+.leaderboard-kiosk .text-base { font-size: calc(1rem * var(--kiosk-scale)); line-height: 1.5; }
+.leaderboard-kiosk .text-lg { font-size: calc(1.125rem * var(--kiosk-scale)); line-height: 1.4; }
+.leaderboard-kiosk .text-xl { font-size: calc(1.25rem * var(--kiosk-scale)); line-height: 1.4; }
+.leaderboard-kiosk .text-2xl { font-size: calc(1.5rem * var(--kiosk-scale)); line-height: 1.3; }
+.leaderboard-kiosk [class~='text-[10px]'] { font-size: calc(10px * var(--kiosk-scale)); line-height: 1.5; }
+.leaderboard-kiosk [class~='text-[11px]'] { font-size: calc(11px * var(--kiosk-scale)); line-height: 1.5; }
+.leaderboard-kiosk select { max-width: 100%; }
+.leaderboard-kiosk th, .leaderboard-kiosk td { padding: 0.8em 1em; }
+.leaderboard-kiosk .border-t.flex { flex-wrap: wrap; gap: 0.5em; }
+.leaderboard-kiosk .w-6.h-6,
+.leaderboard-kiosk .w-9.h-9,
+.leaderboard-kiosk .w-11.h-11 { width: 2em; height: 2em; line-height: 2; flex-shrink: 0; }
