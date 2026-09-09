@@ -439,7 +439,7 @@ export const WavesView: React.FC<WavesViewProps> = ({
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
                   placeholder="bv. Wave 1 - Jeugd & Recreanten"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-medium focus:border-amber-400"
+                  className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white text-xs font-medium focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                 />
               </div>
 
@@ -454,9 +454,9 @@ export const WavesView: React.FC<WavesViewProps> = ({
                     value={editStartTime}
                     onChange={(e) => setEditStartTime(e.target.value)}
                     placeholder="10:00:00"
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono font-bold focus:border-amber-400"
+                    className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white font-mono text-xs font-bold focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                   />
-                  <span className="text-[10px] text-slate-400 mt-0.5 block">Formaat: uu:mm:ss</span>
+                  <span className="text-[10px] text-slate-400 mt-1 block">Formaat: uu:mm:ss</span>
                 </div>
 
                 <div>
@@ -469,7 +469,7 @@ export const WavesView: React.FC<WavesViewProps> = ({
                     max={1000}
                     value={editCapacity}
                     onChange={(e) => setEditCapacity(parseInt(e.target.value, 10) || 25)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono font-bold focus:border-amber-400"
+                    className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white font-mono text-xs font-bold focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                   />
                 </div>
               </div>
@@ -482,22 +482,22 @@ export const WavesView: React.FC<WavesViewProps> = ({
                     setEditingWave(null);
                     handleDeleteWave(w);
                   }}
-                  className="px-3 py-2 rounded-xl bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 text-xs font-bold flex items-center gap-1.5"
+                  className="h-10 px-3.5 rounded-xl bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-800/40 text-xs font-bold flex items-center gap-1.5 transition"
                 >
                   <Trash2 className="w-3.5 h-3.5" /> Verwijderen
                 </button>
 
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => setEditingWave(null)}
-                    className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-semibold"
+                    className="h-10 px-4 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700 font-semibold text-xs transition"
                   >
                     Annuleren
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold uppercase tracking-wider"
+                    className="h-10 px-5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition uppercase tracking-wider"
                   >
                     Opslaan
                   </button>
@@ -525,7 +525,7 @@ export const WavesView: React.FC<WavesViewProps> = ({
             </div>
 
             {assignmentError && <p role="alert" className="text-amber-300">{assignmentError}</p>}
-            <form onSubmit={handleAddWave} className="space-y-3">
+            <form onSubmit={handleAddWave} className="space-y-3.5">
               <div>
                 <label className="text-slate-300 font-semibold block mb-1">Wave Naam:</label>
                 <input
@@ -534,7 +534,7 @@ export const WavesView: React.FC<WavesViewProps> = ({
                   value={newWaveName}
                   onChange={(e) => setNewWaveName(e.target.value)}
                   placeholder={`bv. Wave ${waves.length + 1}`}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium"
+                  className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white text-xs font-medium focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                 />
               </div>
 
@@ -548,7 +548,7 @@ export const WavesView: React.FC<WavesViewProps> = ({
                   value={newStartTime}
                   onChange={(e) => setNewStartTime(e.target.value)}
                   placeholder="10:00:00"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono font-bold"
+                  className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white font-mono text-xs font-bold focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                 />
               </div>
 
@@ -562,21 +562,21 @@ export const WavesView: React.FC<WavesViewProps> = ({
                   max={1000}
                   value={newCapacity}
                   onChange={(e) => setNewCapacity(parseInt(e.target.value, 10) || 25)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono font-bold"
+                  className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white font-mono text-xs font-bold focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+              <div className="flex justify-end gap-2.5 pt-4 border-t border-slate-800">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-3.5 py-2 rounded-xl bg-slate-800 text-slate-300 font-medium"
+                  className="h-10 px-4 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700 font-semibold text-xs transition"
                 >
                   Annuleren
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold uppercase tracking-wider"
+                  className="h-10 px-5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition uppercase tracking-wider"
                 >
                   Wave Aanmaken
                 </button>

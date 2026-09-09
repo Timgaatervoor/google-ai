@@ -29,7 +29,7 @@ const roleLabels: Record<DeviceConfig['role'], string> = {
 };
 
 interface HeaderProps {
-  stationNavigation: React.ReactNode;
+  stationNavigation?: React.ReactNode;
   event: RaceEvent | null;
   deviceConfig: DeviceConfig | null;
   pendingSyncCount: number;
@@ -86,13 +86,12 @@ export const Header: React.FC<HeaderProps> = ({
 
 
   return (
-    <header className="relative text-slate-100">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 sm:gap-4">
-        {stationNavigation}
+    <header id="app-header" className="relative text-slate-100">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-3">
         {/* Brand & Event Title */}
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-500/20 ring-1 ring-amber-400/40">
-            <svg className="w-6 h-6 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-500/20 ring-1 ring-amber-400/40 shrink-0">
+            <svg className="w-5 h-5 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
               <circle cx="12" cy="12" r="10" />
               <circle cx="12" cy="12" r="6" />
               <circle cx="12" cy="12" r="2" fill="currentColor" />
@@ -129,6 +128,13 @@ export const Header: React.FC<HeaderProps> = ({
             </p>
           </div>
         </div>
+
+        {/* Optional station navigation slot if provided */}
+        {stationNavigation && (
+          <div className="hidden lg:block shrink-0">
+            {stationNavigation}
+          </div>
+        )}
 
         {/* Status Indicators & Control Actions */}
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">

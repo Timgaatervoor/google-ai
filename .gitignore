@@ -1,10 +1,15 @@
 node_modules/
+.npm-cache/
 build/
 dist/
 dev-dist/
+.vite/
 coverage/
 .DS_Store
 *.log
 .env*
 !.env.example
-.vite/
+.dev.vars*
+.wrangler/
+# Local Stamhoofd credentials (also covered by .env* above).
+.env.stamhoofd.local

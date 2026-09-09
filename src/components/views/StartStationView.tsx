@@ -281,7 +281,7 @@ export const StartStationView: React.FC<StartStationViewProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('mass')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 ${
+            className={`h-10 px-4 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
               activeTab === 'mass'
                 ? 'bg-emerald-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -292,7 +292,7 @@ export const StartStationView: React.FC<StartStationViewProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('individual')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 ${
+            className={`h-10 px-4 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
               activeTab === 'individual'
                 ? 'bg-emerald-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -303,7 +303,7 @@ export const StartStationView: React.FC<StartStationViewProps> = ({
           <button
             type="button"
             onClick={() => setActiveTab('manual')}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 ${
+            className={`h-10 px-4 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
               activeTab === 'manual'
                 ? 'bg-emerald-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
@@ -538,7 +538,7 @@ export const StartStationView: React.FC<StartStationViewProps> = ({
             <button
               type="submit"
               disabled={!manualBibInput.trim() || !manualTimeInput.trim()}
-              className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow transition disabled:opacity-40"
+              className="h-11 w-full rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg transition disabled:opacity-40"
             >
               STARTTIJD TOEPASSEN & LOGGEN
             </button>
@@ -664,7 +664,7 @@ export const StartStationView: React.FC<StartStationViewProps> = ({
                 value={editNewTime}
                 onChange={(e) => setEditNewTime(e.target.value)}
                 placeholder="bv. 09:12:30"
-                className="w-full bg-slate-850 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono font-bold"
+                className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white font-mono text-xs font-bold focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
               />
             </div>
 
@@ -677,22 +677,22 @@ export const StartStationView: React.FC<StartStationViewProps> = ({
                 value={editReason}
                 onChange={(e) => setEditReason(e.target.value)}
                 placeholder="bv. Verkeerde wave geklikt"
-                className="w-full bg-slate-850 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white"
+                className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-xs text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
               />
             </div>
 
-            <div className="flex gap-2 pt-2">
+            <div className="flex items-center gap-2 pt-3 border-t border-slate-800">
               <button
                 type="button"
                 onClick={() => setEditingRecord(null)}
-                className="flex-1 py-2 rounded-xl bg-slate-800 text-slate-400 text-xs font-bold"
+                className="h-10 flex-1 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold transition"
               >
                 Annuleren
               </button>
               <button
                 type="button"
                 onClick={handleSaveEditStart}
-                className="flex-1 py-2 rounded-xl bg-emerald-500 text-slate-950 text-xs font-black"
+                className="h-10 flex-1 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 text-xs font-bold shadow-lg transition uppercase tracking-wider"
               >
                 Opslaan
               </button>

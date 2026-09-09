@@ -63,13 +63,118 @@ export const EventDashboardView: React.FC<EventDashboardViewProps> = ({
 
   return (
     <div className="space-y-6">
-      <div className="bg-slate-900 rounded-xl border border-slate-700 p-4 flex flex-wrap gap-3 text-sm">
-        <strong>Voorbereiding:</strong>
-        <button className="text-amber-300 underline" onClick={() => onNavigate('participants')}>1. Import en indeling</button>
-        <button className="text-amber-300 underline" onClick={() => onNavigate('participants')}>2. Borstnummers</button>
-        <button className="text-amber-300 underline" onClick={() => onNavigate('waves')}>3. Startgroepen</button>
-        <button className="text-amber-300 underline" onClick={() => onNavigate('settings')}>4. Toestellen en back-up</button>
-        <button className="text-amber-300 underline" onClick={onOpenPreRaceCheck}>5. Startcontrole</button>
+      {/* Wedstrijddag Workflow / Stappenplan */}
+      <div className="bg-slate-900/90 rounded-2xl border border-slate-800 p-4 shadow-lg">
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-black uppercase tracking-wider text-amber-400">
+              Wedstrijddag Stappenplan
+            </span>
+            <span className="text-[11px] text-slate-500 hidden sm:inline">
+              Volg deze 5 stappen voor een vlekkeloze wedstrijdstart
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={onOpenPreRaceCheck}
+            className="text-[11px] font-bold text-amber-300 hover:text-amber-200 flex items-center gap-1.5 transition"
+          >
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Volledige Voorcontrole</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+          <button
+            type="button"
+            onClick={() => onNavigate('participants')}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-950/60 hover:bg-slate-800/80 border border-slate-800/80 hover:border-slate-700 transition text-left group"
+          >
+            <span className="w-6 h-6 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono font-black text-xs flex items-center justify-center shrink-0 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
+              1
+            </span>
+            <div className="min-w-0">
+              <span className="block text-xs font-bold text-white group-hover:text-amber-300 transition truncate">
+                Deelnemers & Nummers
+              </span>
+              <span className="block text-[10px] text-slate-400 truncate">
+                {totalParticipants > 0 ? `${totalParticipants} atleten ingedeeld` : 'Nog geen deelnemers'}
+              </span>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onNavigate('waves')}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-950/60 hover:bg-slate-800/80 border border-slate-800/80 hover:border-slate-700 transition text-left group"
+          >
+            <span className="w-6 h-6 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono font-black text-xs flex items-center justify-center shrink-0 group-hover:bg-blue-500 group-hover:text-slate-950 transition">
+              2
+            </span>
+            <div className="min-w-0">
+              <span className="block text-xs font-bold text-white group-hover:text-blue-300 transition truncate">
+                Startgroepen (Waves)
+              </span>
+              <span className="block text-[10px] text-slate-400 truncate">
+                {waves.length > 0 ? `${waves.length} waves ingesteld` : 'Waves genereren'}
+              </span>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onNavigate('settings')}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-950/60 hover:bg-slate-800/80 border border-slate-800/80 hover:border-slate-700 transition text-left group"
+          >
+            <span className="w-6 h-6 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400 font-mono font-black text-xs flex items-center justify-center shrink-0 group-hover:bg-purple-500 group-hover:text-slate-950 transition">
+              3
+            </span>
+            <div className="min-w-0">
+              <span className="block text-xs font-bold text-white group-hover:text-purple-300 transition truncate">
+                Toestellen & Audio
+              </span>
+              <span className="block text-[10px] text-slate-400 truncate">
+                Rollen & signalen testen
+              </span>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={onOpenPreRaceCheck}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-950/60 hover:bg-slate-800/80 border border-slate-800/80 hover:border-slate-700 transition text-left group"
+          >
+            <span className="w-6 h-6 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono font-black text-xs flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-slate-950 transition">
+              4
+            </span>
+            <div className="min-w-0">
+              <span className="block text-xs font-bold text-white group-hover:text-emerald-300 transition truncate">
+                Voorcontrole Start
+              </span>
+              <span className="block text-[10px] text-slate-400 truncate">
+                Pre-race checklist
+              </span>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onNavigate('start')}
+            className="flex items-center gap-3 p-2.5 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/40 transition text-left group"
+          >
+            <span className="w-6 h-6 rounded-lg bg-emerald-500 text-slate-950 font-mono font-black text-xs flex items-center justify-center shrink-0">
+              5
+            </span>
+            <div className="min-w-0">
+              <span className="block text-xs font-black text-emerald-300 truncate">
+                Start de Wedstrijd!
+              </span>
+              <span className="block text-[10px] text-emerald-400/80 truncate">
+                Open startpost scherm
+              </span>
+            </div>
+          </button>
+        </div>
       </div>
       {/* Top Banner / Event Status */}
       <div className="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl flex flex-wrap items-center justify-between gap-4">

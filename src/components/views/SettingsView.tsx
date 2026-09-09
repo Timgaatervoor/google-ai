@@ -55,7 +55,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
   participants = [],
   onRefresh,
 }) => {
-  const [activeSection, setActiveSection] = useState<'general' | 'profiles' | 'categories' | 'event_setup' | 'sync' | 'backup' | 'tests'>('general');
+  const [activeSection, setActiveSection] = useState<
+    'general' | 'profiles' | 'categories' | 'device' | 'sound' | 'sync' | 'backup' | 'tests' | 'danger'
+  >('general');
 
   // Race Event Settings
   const [eventName, setEventName] = useState(event?.name || '');
@@ -230,96 +232,122 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         </div>
 
         {/* Sub-tab Navigation */}
-        <div className="flex flex-wrap items-center gap-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
+        <div className="flex flex-wrap items-center gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800 overflow-x-auto no-scrollbar">
           <button
             type="button"
             onClick={() => setActiveSection('general')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeSection === 'general'
                 ? 'bg-amber-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <Settings className="w-4 h-4" />
-            <span>Algemeen & Tijd</span>
+            <span>Wedstrijd & Regels</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveSection('profiles')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeSection === 'profiles'
                 ? 'bg-amber-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <Layers className="w-4 h-4" />
-            <span>Wedstrijdinhoud</span>
+            <span>Profielen & Afstanden</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveSection('categories')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeSection === 'categories'
                 ? 'bg-amber-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <Users className="w-4 h-4" />
-            <span>Leeftijdscategorieën</span>
+            <span>Categorieën</span>
           </button>
 
           <button
             type="button"
-            onClick={() => setActiveSection('event_setup')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition ${
-              activeSection === 'event_setup'
+            onClick={() => setActiveSection('device')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+              activeSection === 'device'
                 ? 'bg-amber-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Database className="w-4 h-4" />
-            <span>Gevarenzone & reset</span>
+            <Laptop className="w-4 h-4" />
+            <span>Toestel & Operator</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveSection('sound')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+              activeSection === 'sound'
+                ? 'bg-amber-500 text-slate-950 shadow'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Volume2 className="w-4 h-4" />
+            <span>Geluid & Audio</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveSection('sync')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeSection === 'sync'
                 ? 'bg-amber-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <Cloud className="w-4 h-4" />
-            <span>Online Synchronisatie</span>
+            <span>Cloud & Sync</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveSection('backup')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeSection === 'backup'
                 ? 'bg-amber-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <HardDriveDownload className="w-4 h-4" />
-            <span>Back-up & herstel</span>
+            <span>Back-up & Export</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveSection('tests')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-bold transition ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
               activeSection === 'tests'
                 ? 'bg-amber-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <FlaskConical className="w-4 h-4" />
-            <span>Tests</span>
+            <span>Diagnose & Simulator</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveSection('danger')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+              activeSection === 'danger'
+                ? 'bg-red-600 text-white shadow'
+                : 'text-red-400/80 hover:text-red-300 hover:bg-red-950/40 border border-red-900/40'
+            }`}
+          >
+            <AlertTriangle className="w-4 h-4" />
+            <span>Gevarenzone</span>
           </button>
         </div>
       </div>
@@ -338,7 +366,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           onRefresh={onRefresh}
           onOpenProfiles={() => setActiveSection('profiles')}
         />
-      ) : activeSection === 'event_setup' ? (
+      ) : activeSection === 'danger' ? (
         <EventSetupAndReset
           event={event}
           waves={waves}
@@ -350,20 +378,366 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
       ) : activeSection === 'backup' ? (
         <BackupRecoveryView event={event} onRefresh={onRefresh} />
       ) : activeSection === 'tests' ? (
-        event?.isTestMode ? (
-          <SimulatorView onRefresh={onRefresh} />
-        ) : (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center shadow-xl">
-            <FlaskConical className="w-10 h-10 text-amber-400 mx-auto mb-3" />
-            <h3 className="text-lg font-black text-white">Tests zijn beschikbaar in testmodus</h3>
-            <p className="text-xs text-slate-400 mt-2">
-              Schakel testmodus in bij Algemeen & Tijd om de robuustheidstests en wedstrijdsimulator te gebruiken.
-            </p>
-            <button type="button" onClick={() => setActiveSection('general')} className="mt-4 px-4 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-black">
-              Naar Algemeen & Tijd
+        <div className="space-y-6">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow space-y-4 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" /> Systeemcontrole & Integriteitsdiagnose
+              </h3>
+              <p className="text-slate-400 text-[11px] mt-1">
+                Voer een volledige automatische controle uit op IndexedDB tabellen, NTP kloksynchronisatie, back-up frequentie en Web Audio runtime.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSystemHealthOpen(true)}
+              className="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 font-bold flex items-center justify-center gap-2 transition shadow shrink-0"
+            >
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>Systeemdiagnostiek Openen</span>
             </button>
           </div>
-        )
+          {event?.isTestMode ? (
+            <SimulatorView onRefresh={onRefresh} />
+          ) : (
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center shadow-xl">
+              <FlaskConical className="w-10 h-10 text-amber-400 mx-auto mb-3" />
+              <h3 className="text-lg font-black text-white">Wedstrijdsimulator is beschikbaar in testmodus</h3>
+              <p className="text-xs text-slate-400 mt-2">
+                Schakel testmodus in bij Wedstrijd & Regels om de stresstest simulator te gebruiken.
+              </p>
+              <button type="button" onClick={() => setActiveSection('general')} className="mt-4 px-4 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-black">
+                Naar Wedstrijd & Regels
+              </button>
+            </div>
+          )}
+        </div>
+      ) : activeSection === 'sound' ? (
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow space-y-6 text-xs">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                <Volume2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  Geluid & Akoestische Signalen
+                </h3>
+                <p className="text-slate-400 text-[11px] mt-0.5">
+                  Akoestische feedback voor start-, schiet- en finishregistraties en veiligheidswaarschuwingen.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span
+                className={`text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider border ${
+                  !soundEnabled
+                    ? 'bg-slate-800 border-slate-700 text-slate-400'
+                    : audioStatus.state === 'running'
+                    ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-400'
+                    : 'bg-amber-950/60 border-amber-500/40 text-amber-300'
+                }`}
+              >
+                {!soundEnabled
+                  ? 'Geluid Uit'
+                  : audioStatus.state === 'running'
+                  ? 'Audio Actief (running)'
+                  : 'Stand-by (klik om te testen)'}
+              </span>
+
+              <button
+                type="button"
+                onClick={handleToggleSound}
+                className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 border transition ${
+                  soundEnabled
+                    ? 'bg-amber-500 text-slate-950 border-amber-400 hover:bg-amber-400'
+                    : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
+                }`}
+              >
+                {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                <span>{soundEnabled ? 'Geluid Ingeschakeld' : 'Geluid Uitgeschakeld'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Volume Slider & Controls */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div className="md:col-span-5 space-y-2">
+              <div className="flex items-center justify-between text-slate-300 font-semibold">
+                <span className="flex items-center gap-2">
+                  <Volume1 className="w-4 h-4 text-amber-400" />
+                  Geluidsvolume:
+                </span>
+                <span className="font-mono text-amber-400 font-bold">{Math.round(soundVolume * 100)}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value={soundVolume}
+                disabled={!soundEnabled}
+                onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
+                className="w-full accent-amber-500 cursor-pointer disabled:opacity-40"
+              />
+              <p className="text-[11px] text-slate-500">
+                Wordt direct opgeslagen in de lokale browserinstellingen voor deze post.
+              </p>
+            </div>
+
+            {/* Direct Sound Testing Panel */}
+            <div className="md:col-span-7 space-y-2">
+              <span className="text-slate-300 font-semibold block">
+                Signalen testen (klik om te beluisteren):
+              </span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleTestSound('success')}
+                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-emerald-300 border border-slate-700 hover:border-emerald-600 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
+                >
+                  <Play className="w-3 h-3 text-emerald-400 shrink-0" />
+                  <span>Succes</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleTestSound('warning')}
+                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-amber-300 border border-slate-700 hover:border-amber-500 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
+                >
+                  <Play className="w-3 h-3 text-amber-400 shrink-0" />
+                  <span>Waarschuwing</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleTestSound('error')}
+                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-red-300 border border-slate-700 hover:border-red-500 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
+                >
+                  <Play className="w-3 h-3 text-red-400 shrink-0" />
+                  <span>Fouttoon</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleTestSound('countdown')}
+                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-purple-300 border border-slate-700 hover:border-purple-500 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
+                >
+                  <Play className="w-3 h-3 text-purple-400 shrink-0" />
+                  <span>Aftellen & Start</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleTestSound('hit')}
+                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-emerald-300 border border-slate-700 hover:border-emerald-500 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
+                >
+                  <Play className="w-3 h-3 text-emerald-400 shrink-0" />
+                  <span>Schot RAAK</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleTestSound('miss')}
+                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 border border-slate-700 hover:border-slate-600 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
+                >
+                  <Play className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>Schot MIS</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleTestSound('finish')}
+                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-amber-300 border border-slate-700 hover:border-amber-500 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
+                >
+                  <Play className="w-3 h-3 text-amber-400 shrink-0" />
+                  <span>Finish Fanfare</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleTestSound('click')}
+                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 hover:border-slate-500 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
+                >
+                  <Play className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span>Tactiele Klik</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : activeSection === 'device' ? (
+        <form onSubmit={handleSaveSettings} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Device & Operator Identity */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow space-y-4 text-xs">
+              <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <Laptop className="w-4 h-4 text-blue-400" /> Toestel- & Operator Identiteit
+              </h3>
+
+              <div className="space-y-3">
+                <div>
+                  <label className="text-slate-300 font-semibold block mb-1">
+                    Apparaat Identificatie (Device ID):
+                  </label>
+                  <input
+                    type="text"
+                    value={deviceId}
+                    onChange={(e) => setDeviceId(e.target.value)}
+                    placeholder="bv. FINISH-01"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white font-mono font-bold"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-slate-300 font-semibold block mb-1">Rol van dit toestel:</label>
+                  <select
+                    value={deviceRole}
+                    onChange={(event) => setDeviceRole(event.target.value as UserRole)}
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white font-semibold"
+                  >
+                    <option value="ADMIN">Beheerder (Volledige toegang)</option>
+                    <option value="RACE_DIRECTOR">Wedstrijdleider</option>
+                    <option value="REGISTRATION">Inschrijving & Deelnemers</option>
+                    <option value="START_OPERATOR">Startpost (alleen startpulsen)</option>
+                    <option value="SHOOTING_OPERATOR">Schietpost (alleen schietstanden)</option>
+                    <option value="FINISH_OPERATOR">Finishpost (alleen finishpulsen)</option>
+                    <option value="VIEWER">Alleen live uitslagen (Speaker / Publiek)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-slate-300 font-semibold block mb-1">
+                    Huidige Operator Naam:
+                  </label>
+                  <input
+                    type="text"
+                    value={operatorName}
+                    onChange={(e) => setOperatorName(e.target.value)}
+                    placeholder="Naam van de medewerker"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-slate-300 font-semibold block mb-1">Station Locatienaam:</label>
+                  <input
+                    type="text"
+                    value={stationName}
+                    onChange={(e) => setStationName(e.target.value)}
+                    placeholder="bv. Finishboog Hoofdparcours"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Vergrendeling & Thema */}
+            <div className="space-y-6">
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow space-y-4 text-xs">
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <Lock className="w-4 h-4 text-amber-400" /> Postvergrendeling & Veiligheid
+                </h3>
+
+                <label className="flex items-start gap-3 rounded-xl border border-amber-500/30 bg-amber-950/20 p-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={deviceLocked}
+                    onChange={(event) => setDeviceLocked(event.target.checked)}
+                    className="w-4 h-4 mt-0.5 rounded text-amber-500"
+                  />
+                  <span>
+                    <strong className="block text-white">Vergrendel toestel op toegewezen post</strong>
+                    <span className="block mt-0.5 text-[11px] text-slate-400">
+                      Na opslaan ziet de operator alleen het scherm dat bij de gekozen rol hoort.
+                    </span>
+                  </span>
+                </label>
+
+                <div>
+                  <label className="text-slate-300 font-semibold block mb-1">Beheerderscode (Pincode):</label>
+                  <input
+                    type="password"
+                    inputMode="numeric"
+                    value={devicePin}
+                    onChange={(event) => setDevicePin(event.target.value)}
+                    placeholder="Optioneel, bv. 2468"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white font-mono"
+                  />
+                  <span className="text-[11px] text-slate-500 block mt-1">
+                    Nodig om een vergrendelde post later weer te ontgrendelen.
+                  </span>
+                </div>
+              </div>
+
+              {/* Thema-instelling */}
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow space-y-4 text-xs">
+                <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <Sun className="w-4 h-4 text-amber-400" /> Weergavethema
+                </h3>
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCurrentTheme('dark');
+                      themeService.setTheme('dark');
+                    }}
+                    className={`py-2 px-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition border ${
+                      currentTheme === 'dark'
+                        ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                        : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
+                    }`}
+                  >
+                    <Moon className="w-4 h-4" /> Donker
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCurrentTheme('light');
+                      themeService.setTheme('light');
+                    }}
+                    className={`py-2 px-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition border ${
+                      currentTheme === 'light'
+                        ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                        : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
+                    }`}
+                  >
+                    <Sun className="w-4 h-4" /> Licht
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCurrentTheme('system');
+                      themeService.setTheme('system');
+                    }}
+                    className={`py-2 px-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition border ${
+                      currentTheme === 'system'
+                        ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
+                        : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
+                    }`}
+                  >
+                    <Monitor className="w-4 h-4" /> Systeem
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-end items-center gap-4 pt-2">
+            {savedMessage && (
+              <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4" /> Toestelinstellingen opgeslagen!
+              </span>
+            )}
+            <button
+              type="submit"
+              className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg transition uppercase tracking-wider"
+            >
+              Toestel & Operator Opslaan
+            </button>
+          </div>
+        </form>
       ) : (
         <form onSubmit={handleSaveSettings} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -495,332 +869,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                   </span>
                 </div>
               </label>
-            </div>
-          </div>
-
-          {/* Device & Operator Identity (Req 31) */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow space-y-4 text-xs md:col-span-2">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <Laptop className="w-4 h-4 text-blue-400" /> Toestel- & Operator Identiteit
-            </h3>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div>
-                <label className="text-slate-300 font-semibold block mb-1">
-                  Apparaat Identificatie (Device ID):
-                </label>
-                <input
-                  type="text"
-                  value={deviceId}
-                  onChange={(e) => setDeviceId(e.target.value)}
-                  placeholder="bv. FINISH-01"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white font-mono font-bold"
-                />
-              </div>
-
-              <div>
-                <label className="text-slate-300 font-semibold block mb-1">Rol van dit toestel:</label>
-                <select
-                  value={deviceRole}
-                  onChange={(event) => setDeviceRole(event.target.value as UserRole)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white font-semibold"
-                >
-                  <option value="ADMIN">Beheerder</option>
-                  <option value="RACE_DIRECTOR">Wedstrijdleider</option>
-                  <option value="REGISTRATION">Inschrijving</option>
-                  <option value="START_OPERATOR">Startpost</option>
-                  <option value="SHOOTING_OPERATOR">Schietpost</option>
-                  <option value="FINISH_OPERATOR">Finishpost</option>
-                  <option value="VIEWER">Alleen live uitslagen</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="text-slate-300 font-semibold block mb-1">
-                  Huidige Operator Naam:
-                </label>
-                <input
-                  type="text"
-                  value={operatorName}
-                  onChange={(e) => setOperatorName(e.target.value)}
-                  placeholder="Naam van de medewerker"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white"
-                />
-              </div>
-
-              <div>
-                <label className="text-slate-300 font-semibold block mb-1">Station Locatie:</label>
-                <input
-                  type="text"
-                  value={stationName}
-                  onChange={(e) => setStationName(e.target.value)}
-                  placeholder="bv. Finishpost"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white"
-                />
-              </div>
-
-              <label className="sm:col-span-2 flex items-start gap-3 rounded-xl border border-amber-500/30 bg-amber-950/20 p-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={deviceLocked}
-                  onChange={(event) => setDeviceLocked(event.target.checked)}
-                  className="w-4 h-4 mt-0.5 rounded text-amber-500"
-                />
-                <span>
-                  <strong className="block text-white">Vergrendel toestel op toegewezen post</strong>
-                  <span className="block mt-0.5 text-[11px] text-slate-400">
-                    Na opslaan ziet de operator alleen het scherm dat bij de gekozen rol hoort.
-                  </span>
-                </span>
-              </label>
-
-              <div>
-                <label className="text-slate-300 font-semibold block mb-1">Beheerderscode:</label>
-                <input
-                  type="password"
-                  inputMode="numeric"
-                  value={devicePin}
-                  onChange={(event) => setDevicePin(event.target.value)}
-                  placeholder="Optioneel, bv. 2468"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-white font-mono"
-                />
-                <span className="text-[11px] text-slate-500 block mt-1">Nodig om een vergrendelde post te openen.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* FASE 9 & 10: Thema & Systeemintegriteit (Electron / PWA / Opslag) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* FASE 9: Thema-instelling */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow space-y-4 text-xs">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <Sun className="w-4 h-4 text-amber-400" /> Weergavethema
-            </h3>
-            <p className="text-slate-400 text-[11px]">
-              Kies het kleurthema voor de interface en tv-kioskschermen.
-            </p>
-            <div className="grid grid-cols-3 gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => {
-                  setCurrentTheme('dark');
-                  themeService.setTheme('dark');
-                }}
-                className={`py-2.5 px-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition border ${
-                  currentTheme === 'dark'
-                    ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
-                    : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
-                }`}
-              >
-                <Moon className="w-4 h-4" /> Donker
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setCurrentTheme('light');
-                  themeService.setTheme('light');
-                }}
-                className={`py-2.5 px-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition border ${
-                  currentTheme === 'light'
-                    ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
-                    : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
-                }`}
-              >
-                <Sun className="w-4 h-4" /> Licht
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setCurrentTheme('system');
-                  themeService.setTheme('system');
-                }}
-                className={`py-2.5 px-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition border ${
-                  currentTheme === 'system'
-                    ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
-                    : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
-                }`}
-              >
-                <Monitor className="w-4 h-4" /> Systeem
-              </button>
-            </div>
-          </div>
-
-          {/* FASE 10: Systeemdiagnostiek & Electron / PWA check */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow space-y-4 text-xs flex flex-col justify-between">
-            <div>
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" /> Systeemcontrole & Integriteit
-              </h3>
-              <p className="text-slate-400 text-[11px] mt-1">
-                Controleer de status van lokale IndexedDB tabellen, NTP kloksynchronisatie, back-up frequentie en Electron/PWA runtime.
-              </p>
-            </div>
-            <div>
-              <button
-                type="button"
-                onClick={() => setSystemHealthOpen(true)}
-                className="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 font-bold flex items-center justify-center gap-2 transition shadow"
-              >
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Systeemdiagnostiek Openen</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Geluid, Signalen & Audio Test (Req 52) */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow space-y-5 text-xs">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
-            <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
-                <Volume2 className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                  Geluid & Akoestische Signalen
-                </h3>
-                <p className="text-slate-400 text-[11px] mt-0.5">
-                  Akoestische feedback voor start-, schiet- en finishregistraties en veiligheidswaarschuwingen.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span
-                className={`text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider border ${
-                  !soundEnabled
-                    ? 'bg-slate-800 border-slate-700 text-slate-400'
-                    : audioStatus.state === 'running'
-                    ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-400'
-                    : 'bg-amber-950/60 border-amber-500/40 text-amber-300'
-                }`}
-              >
-                {!soundEnabled
-                  ? 'Geluid Uit'
-                  : audioStatus.state === 'running'
-                  ? 'Audio Actief (running)'
-                  : 'Stand-by (klik om te testen)'}
-              </span>
-
-              <button
-                type="button"
-                onClick={handleToggleSound}
-                className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 border transition ${
-                  soundEnabled
-                    ? 'bg-amber-500 text-slate-950 border-amber-400 hover:bg-amber-400'
-                    : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
-                }`}
-              >
-                {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-                <span>{soundEnabled ? 'Geluid Ingeschakeld' : 'Geluid Uitgeschakeld'}</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Volume Slider & Controls */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-            <div className="md:col-span-5 space-y-2">
-              <div className="flex items-center justify-between text-slate-300 font-semibold">
-                <span className="flex items-center gap-2">
-                  <Volume1 className="w-4 h-4 text-amber-400" />
-                  Geluidsvolume:
-                </span>
-                <span className="font-mono text-amber-400 font-bold">{Math.round(soundVolume * 100)}%</span>
-              </div>
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.05"
-                value={soundVolume}
-                disabled={!soundEnabled}
-                onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-                className="w-full accent-amber-500 cursor-pointer disabled:opacity-40"
-              />
-              <p className="text-[11px] text-slate-500">
-                Wordt direct opgeslagen in de lokale browserinstellingen voor deze post.
-              </p>
-            </div>
-
-            {/* Direct Sound Testing Panel */}
-            <div className="md:col-span-7 space-y-2">
-              <span className="text-slate-300 font-semibold block">
-                Signalen testen (klik om te beluisteren):
-              </span>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleTestSound('success')}
-                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-emerald-300 border border-slate-700 hover:border-emerald-600 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
-                >
-                  <Play className="w-3 h-3 text-emerald-400 shrink-0" />
-                  <span>Succes</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleTestSound('warning')}
-                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-amber-300 border border-slate-700 hover:border-amber-600 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
-                >
-                  <Play className="w-3 h-3 text-amber-400 shrink-0" />
-                  <span>Alarm/Attentie</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleTestSound('error')}
-                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-red-300 border border-slate-700 hover:border-red-600 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
-                >
-                  <Play className="w-3 h-3 text-red-400 shrink-0" />
-                  <span>Fout/Straf</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleTestSound('countdown')}
-                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-cyan-300 border border-slate-700 hover:border-cyan-600 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
-                >
-                  <Play className="w-3 h-3 text-cyan-400 shrink-0" />
-                  <span>Start (GO)</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleTestSound('hit')}
-                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-emerald-300 border border-slate-700 hover:border-emerald-600 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
-                >
-                  <Play className="w-3 h-3 text-emerald-400 shrink-0" />
-                  <span>Schot RAAK</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleTestSound('miss')}
-                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 border border-slate-700 hover:border-slate-600 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
-                >
-                  <Play className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Schot MIS</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleTestSound('finish')}
-                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-amber-300 border border-slate-700 hover:border-amber-500 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
-                >
-                  <Play className="w-3 h-3 text-amber-400 shrink-0" />
-                  <span>Finish Fanfare</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleTestSound('click')}
-                  className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 hover:border-slate-500 font-bold text-[11px] flex items-center justify-center gap-1.5 transition active:scale-95"
-                >
-                  <Play className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span>Tactiele Klik</span>
-                </button>
-              </div>
             </div>
           </div>
         </div>

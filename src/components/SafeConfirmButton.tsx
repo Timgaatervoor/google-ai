@@ -172,22 +172,15 @@ export const SafeConfirmButton: React.FC<SafeConfirmButtonProps> = ({
     }
 
     if (stage === 'holding') {
-      const duration = performance.now() - pointerDownTimeRef.current;
       if (animFrameRef.current) {
         cancelAnimationFrame(animFrameRef.current);
         animFrameRef.current = null;
       }
       holdStartRef.current = null;
 
-      // If held for full duration, it was handled in the tick.
-      // If it was a quick click or tap (<400ms) while armed, confirm immediately!
-      if (duration < 400 && !isExecutingRef.current) {
+      // When armed and pressed/clicked, confirm immediately upon release or click
+      if (!isExecutingRef.current) {
         handleConfirmTrigger();
-      } else {
-        // Released midway through holding: cancel back to armed
-        setHoldProgress(0);
-        setSecondsRemaining(3);
-        setStage('armed');
       }
     }
   };
@@ -263,6 +256,10 @@ export const SafeConfirmButton: React.FC<SafeConfirmButtonProps> = ({
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerCancel}
+            onClick={(e) => {
+              e.preventDefault();
+              if (!isExecutingRef.current) handleConfirmTrigger();
+            }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();

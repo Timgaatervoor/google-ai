@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* Verberg zichtbare scrollbars overal, behoud soepele scroll functionaliteit */
+* {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE en Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, WebKit */
+  width: 0 !important;
+  height: 0 !important;
+}
+
 /* Theme system: High-contrast Light Mode overrides */
 html.theme-light {
   color-scheme: light;

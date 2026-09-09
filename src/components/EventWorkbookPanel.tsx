@@ -10,7 +10,7 @@ export function EventWorkbookPanel({ onRefresh }: { onRefresh: () => void }) {
   const [message, setMessage] = useState('');
   const [preview, setPreview] = useState<{ book: XLSX.WorkBook; expected: string; plan: ReturnType<typeof planEventWorkbook> }>();
   const run = async (action: () => Promise<void>) => { setBusy(true); setMessage(''); try { await action(); } catch (e) { setMessage((e as Error).message); } finally { setBusy(false); } };
-  return <details className={ui.card}>
+  return <details open className={ui.card}>
     <summary className="cursor-pointer font-bold text-white flex items-center gap-2"><FileSpreadsheet className="w-4 h-4 text-amber-400" />Werken met Excel (zonder Stamhoofd)</summary>
     <p className="text-slate-400 leading-relaxed">Bereid het evenement volledig voor in Excel: artikelen, parcours met schietproeven, leeftijdscategorieën, startgroepen en deelnemers. In ‘Lees mij’ staat de invulhandleiding. De indeling volgt de leeftijd op 31 december en het artikel.</p>
     <fieldset disabled={busy} className="flex flex-wrap gap-3">

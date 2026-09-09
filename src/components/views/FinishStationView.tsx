@@ -237,7 +237,7 @@ export const FinishStationView: React.FC<FinishStationViewProps> = ({
         </div>
 
         <div className="flex items-center gap-3">
-          <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-slate-300 font-semibold bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+          <label className="h-10 flex items-center gap-2 cursor-pointer select-none text-xs text-slate-300 font-semibold bg-slate-800/80 px-3.5 rounded-xl border border-slate-700">
             <input
               type="checkbox"
               checked={quickFinish}
@@ -250,7 +250,7 @@ export const FinishStationView: React.FC<FinishStationViewProps> = ({
           <button
             onClick={handleEmergencyUnknownFinish}
             disabled={isSubmitting}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-950/60 hover:bg-red-900/80 text-red-300 border border-red-600/50 text-xs font-bold transition shadow"
+            className="h-10 flex items-center gap-1.5 px-4 rounded-xl bg-red-950/60 hover:bg-red-900/80 active:scale-95 text-red-300 border border-red-600/50 text-xs font-bold transition shadow"
             title="Sla direct een finishtijd op voor een loper zonder zichtbaar nummer"
           >
             <HelpCircle className="w-4 h-4 text-red-400" />
@@ -452,19 +452,19 @@ export const FinishStationView: React.FC<FinishStationViewProps> = ({
               </div>
             )}
 
-            <div className="flex gap-3 pt-2">
+            <div className="flex items-center gap-2 pt-3 border-t border-slate-800">
               <button
                 onClick={() => {
                   setConfirmModalBib(null);
                   setCapturedTime(null);
                 }}
-                className="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition"
+                className="h-10 flex-1 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700 font-semibold text-xs transition"
               >
                 Annuleren (ESC)
               </button>
               <button
                 onClick={() => executeFinish(confirmModalBib, false, capturedTime || undefined)}
-                className="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow transition"
+                className="h-10 flex-1 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition"
               >
                 Bevestigen (ENTER)
               </button>

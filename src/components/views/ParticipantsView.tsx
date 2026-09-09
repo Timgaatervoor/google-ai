@@ -66,6 +66,11 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [showAddModal, setShowAddModal] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
+  const [showWorkbook, setShowWorkbook] = useState(false);
+
+  // Participant counts
+  const participantsWithBib = participants.filter((p) => p.bibNumber !== undefined).length;
+  const participantsWithoutBib = participants.length - participantsWithBib;
 
   // New participant form state
   const [newFirstName, setNewFirstName] = useState('');
@@ -529,86 +534,168 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
       {showStamhoofd && <StamhoofdIntegrationModal participants={participants} categories={categories} onRefresh={onRefresh} onClose={() => setShowStamhoofd(false)} />}
       {showBibAssignment && <BibAssignmentModal participants={participants} onClose={() => setShowBibAssignment(false)} onRefresh={onRefresh} />}
       {bibMessage && <p role="status" className="rounded-xl bg-slate-800 p-3 text-amber-300">{bibMessage}</p>}
-      <EventWorkbookPanel onRefresh={onRefresh} />
-      {/* Top Banner & Action Buttons */}
+
+      {/* Top Banner & Quick Actions */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-wrap items-center justify-between gap-4">
         <div>
           <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold flex items-center gap-1.5">
             <Users className="w-4 h-4" /> Deelnemers Administratie
           </span>
           <h2 className="text-2xl font-black text-white tracking-tight mt-0.5">
-            Deelnemersbeheer & import
+            Deelnemersbeheer & Inschrijvingen
           </h2>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Totaal: <strong className="text-white">{participants.length}</strong> deelnemers geregistreerd
-          </p>
+          <div className="flex items-center gap-2 text-xs text-slate-400 mt-1 flex-wrap">
+            <span>Totaal: <strong className="text-white">{participants.length}</strong> deelnemers</span>
+            <span>•</span>
+            <span className={participantsWithoutBib > 0 ? "text-amber-400 font-semibold" : "text-emerald-400 font-semibold"}>
+              {participantsWithBib} met startnummer {participantsWithoutBib > 0 && `(${participantsWithoutBib} nog toe te wijzen)`}
+            </span>
+          </div>
         </div>
 
+        {/* Primary and Import action group */}
         <div className="flex items-center gap-2.5 flex-wrap">
-          <button onClick={() => setShowStamhoofd(true)} className="px-3.5 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs">Stamhoofd API</button>
           <button
-            onClick={() => setShowImportModal(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-lg shadow-blue-500/20 transition"
-          >
-            <Upload className="w-4 h-4" /> Andere CSV/Excel import
-          </button>
-          <button
-            onClick={() => setShowBibAssignment(true)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold transition"
-            title="Wijs borstnummers toe per leeftijdsbereik"
-          >
-            <ArrowUpDown className="w-4 h-4" /> Borstnummers per leeftijd
-          </button>
-          <SafeConfirmButton
-            label="Alle borstnummers verwijderen"
-            icon={<Trash2 className="w-4 h-4" />}
-            confirmPrompt="Klik om te wissen (of houd 3s vast)"
-            successMessage="Borstnummers zijn verwijderd."
-            variant="danger"
-            disabled={clearingBibs || !participants.some(p => p.bibNumber !== undefined)}
-            onConfirm={handleClearBibs}
-          />
-          <button
+            type="button"
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow transition"
+            className="flex items-center gap-2 h-10 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition uppercase tracking-wider"
           >
-            <UserPlus className="w-4 h-4" /> Nieuwe Deelnemer
+            <UserPlus className="w-4 h-4" />
+            <span>Nieuwe Deelnemer</span>
           </button>
+
+          <div className="h-6 w-px bg-slate-800 hidden sm:block" />
+
+          {/* Import opties netjes gegroepeerd */}
           <button
-            onClick={handleExportCsv}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 border border-slate-700 transition"
-            title="Download Deelnemers CSV"
+            type="button"
+            onClick={() => setShowStamhoofd(true)}
+            className="flex items-center gap-1.5 h-10 px-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-xs shadow transition"
+            title="Koppel en synchroniseer direct met Stamhoofd online inschrijvingen"
           >
-            <Download className="w-4 h-4" />
+            <Sparkles className="w-4 h-4 text-blue-200" />
+            <span>Stamhoofd API</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setShowImportModal(true)}
+            className="flex items-center gap-1.5 h-10 px-3.5 rounded-xl bg-slate-800 hover:bg-slate-750 active:scale-95 text-slate-200 border border-slate-700 text-xs font-semibold transition"
+            title="Importeer deelnemers via CSV of Excel-bestand"
+          >
+            <Upload className="w-4 h-4 text-slate-400" />
+            <span>CSV / Excel Import</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setShowWorkbook(!showWorkbook)}
+            className={`flex items-center gap-1.5 h-10 px-3.5 rounded-xl border text-xs font-semibold transition ${
+              showWorkbook
+                ? 'bg-amber-500/15 border-amber-500/50 text-amber-300 font-bold'
+                : 'bg-slate-800 hover:bg-slate-750 text-slate-300 border border-slate-700'
+            }`}
+            title="Excel voorbereidingsbestand (zonder Stamhoofd) downloaden of inlezen"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-amber-400" />
+            <span>Excel Werkbestand {showWorkbook ? 'Sluiten' : 'Openen'}</span>
           </button>
         </div>
       </div>
 
+      {/* Optioneel getoond Excel werkbestand paneel */}
+      {showWorkbook && (
+        <div className="animate-in fade-in duration-150">
+          <EventWorkbookPanel onRefresh={onRefresh} />
+        </div>
+      )}
+
+      {/* Dedicated Borstnummer Beheer Strip */}
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+            <ArrowUpDown className="w-4 h-4" />
+          </div>
+          <div>
+            <span className="font-bold text-white text-sm block">Borstnummers Beheer</span>
+            <span className="text-slate-400 text-xs">
+              {participantsWithBib > 0
+                ? `${participantsWithBib} van ${participants.length} deelnemers hebben een startnummer`
+                : 'Er zijn nog geen borstnummers toegewezen aan deze deelnemers'}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <button
+            type="button"
+            onClick={() => setShowBibAssignment(true)}
+            className="flex items-center gap-2 h-10 px-3.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold transition active:scale-95 shadow-sm"
+          >
+            <ArrowUpDown className="w-4 h-4 text-amber-400" />
+            <span>Startnummers Automatisch Toewijzen</span>
+          </button>
+
+          <SafeConfirmButton
+            label="Borstnummers Wissen"
+            icon={<Trash2 className="w-4 h-4" />}
+            confirmPrompt="Wis alle borstnummers (of houd 3s vast)"
+            successMessage="Alle borstnummers zijn gewist."
+            variant="danger"
+            disabled={clearingBibs || participantsWithBib === 0}
+            onConfirm={handleClearBibs}
+            className="h-10"
+          />
+        </div>
+      </div>
+
       {/* Filters Toolbar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow flex flex-wrap items-center gap-3">
-        <div className="relative flex-1 min-w-[220px]">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow flex flex-wrap items-center gap-3 text-xs">
+        <div className="relative flex-1 min-w-[240px]">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Zoek op naam, borstnummer, club of ticket secret..."
-            className="w-full bg-slate-800 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            placeholder="Zoek op naam, borstnummer (#), categorie, club of stamhoofd-ID..."
+            className="w-full h-10 bg-slate-850 border border-slate-700 rounded-xl pl-10 pr-9 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
           />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
 
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-medium focus:outline-none focus:border-blue-500"
-        >
-          <option value="ALL">Alle Categorieën ({categories.length})</option>
-          {categories.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="h-10 bg-slate-850 border border-slate-700 rounded-xl px-3 text-xs text-white font-medium focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
+          >
+            <option value="ALL">Alle Categorieën ({categories.length})</option>
+            {categories.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+
+          <button
+            type="button"
+            onClick={handleExportCsv}
+            disabled={filtered.length === 0}
+            className="flex items-center gap-1.5 h-10 px-3.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-semibold transition active:scale-95 disabled:opacity-40"
+            title="Download gefilterde deelnemers als CSV"
+          >
+            <Download className="w-4 h-4 text-slate-400" />
+            <span>Exporteer CSV ({filtered.length})</span>
+          </button>
+        </div>
       </div>
 
       {/* Participants Table */}
@@ -726,47 +813,47 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
               </button>
             </div>
 
-            <form onSubmit={handleAddParticipant} className="space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-2">
+            <form onSubmit={handleAddParticipant} className="space-y-3.5 text-xs">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-slate-400 block mb-1">Voornaam *:</label>
+                  <label className="text-slate-300 font-semibold block mb-1">Voornaam *:</label>
                   <input
                     type="text"
                     required
                     value={newFirstName}
                     onChange={(e) => setNewFirstName(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white"
+                    className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white text-xs placeholder-slate-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                   />
                 </div>
                 <div>
-                  <label className="text-slate-400 block mb-1">Achternaam *:</label>
+                  <label className="text-slate-300 font-semibold block mb-1">Achternaam *:</label>
                   <input
                     type="text"
                     required
                     value={newLastName}
                     onChange={(e) => setNewLastName(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white"
+                    className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white text-xs placeholder-slate-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-slate-400 block mb-1">Startnummer (optioneel):</label>
+                  <label className="text-slate-300 font-semibold block mb-1">Startnummer (optioneel):</label>
                   <input
                     type="number"
                     value={newBib}
                     onChange={(e) => setNewBib(e.target.value)}
                     placeholder="bv. 101"
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono"
+                    className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white font-mono text-xs placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                   />
                 </div>
                 <div>
-                  <label className="text-slate-400 block mb-1">Geslacht:</label>
+                  <label className="text-slate-300 font-semibold block mb-1">Geslacht:</label>
                   <select
                     value={newGender}
                     onChange={(e) => setNewGender(e.target.value as any)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white"
+                    className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white text-xs focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                   >
                     <option value="M">Man (M)</option>
                     <option value="F">Vrouw (V)</option>
@@ -776,7 +863,7 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
               </div>
 
               <div>
-                <label className="text-slate-400 block mb-1">Categorie:</label>
+                <label className="text-slate-300 font-semibold block mb-1">Categorie:</label>
                 <select
                   value={newCatId}
                   onChange={(e) => {
@@ -785,7 +872,7 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
                     const categoryProfileId = getDefaultCategoryProfileId(categoryMap.get(categoryId));
                     if (categoryProfileId) setNewProfileId(categoryProfileId);
                   }}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white"
+                  className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white text-xs focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                 >
                   {categories.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -796,12 +883,12 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
               </div>
 
               <div>
-                <label className="text-slate-400 block mb-1">Wedstrijdprofiel *:</label>
+                <label className="text-slate-300 font-semibold block mb-1">Wedstrijdprofiel *:</label>
                 <select
                   required
                   value={newProfileId}
                   onChange={(e) => setNewProfileId(e.target.value)}
-                  className="w-full bg-slate-800 border border-emerald-600/60 rounded-lg px-3 py-2 text-white"
+                  className="w-full h-10 bg-slate-800 border border-emerald-500/50 rounded-xl px-3 text-white text-xs focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition"
                 >
                   <option value="">Kies een wedstrijdprofiel...</option>
                   {newParticipantProfiles.map((profile) => (
@@ -809,7 +896,7 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
                   ))}
                 </select>
                 {profiles.find((profile) => profile.id === newProfileId) && (
-                  <span className="text-[10px] text-emerald-400 block mt-1">
+                  <span className="text-[11px] text-emerald-400 block mt-1.5 font-medium">
                     {profiles.find((profile) => profile.id === newProfileId)?.legs.filter((leg) => leg.type === 'RUN').map((leg) => `${leg.distanceMeters || 0}m`).join(' + ') || 'Geen looponderdeel'}{' '}
                     • {profiles.find((profile) => profile.id === newProfileId)?.legs.filter((leg) => leg.type === 'SHOOT').length || 0} schietproeven
                   </span>
@@ -817,11 +904,11 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
               </div>
 
               <div>
-                <label className="text-slate-400 block mb-1">Wave / Startgroep:</label>
+                <label className="text-slate-300 font-semibold block mb-1">Wave / Startgroep:</label>
                 <select
                   value={newWaveId}
                   onChange={(e) => setNewWaveId(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white"
+                  className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white text-xs focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                 >
                   {waves.map((w) => (
                     <option key={w.id} value={w.id}>
@@ -832,27 +919,27 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
               </div>
 
               <div>
-                <label className="text-slate-400 block mb-1">Club / Woonplaats:</label>
+                <label className="text-slate-300 font-semibold block mb-1">Club / Woonplaats:</label>
                 <input
                   type="text"
                   value={newClub}
                   onChange={(e) => setNewClub(e.target.value)}
-                  placeholder="Naam van de club"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white"
+                  placeholder="Naam van de club of woonplaats"
+                  className="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl px-3 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
                 />
               </div>
 
-              <div className="flex gap-2 justify-end pt-3 border-t border-slate-800">
+              <div className="flex items-center gap-2.5 justify-end pt-4 border-t border-slate-800">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 font-medium"
+                  className="h-10 px-4 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700 font-semibold text-xs transition"
                 >
                   Annuleren
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold"
+                  className="h-10 px-5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition uppercase tracking-wider"
                 >
                   Toevoegen
                 </button>
@@ -1200,18 +1287,18 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
                   ))}
                 </div>
 
-                <div className="flex justify-between items-center pt-3 border-t border-slate-800">
+                <div className="flex justify-between items-center pt-4 border-t border-slate-800">
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setImportStep('upload')}
-                      className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 font-medium transition"
+                      className="h-10 px-4 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold transition"
                     >
                       ← Ander bestand kiezen
                     </button>
                     {parsedData.isExcel && parsedData.sheets && parsedData.sheets.length > 1 && (
                       <button
                         onClick={() => setImportStep('sheets')}
-                        className="px-3 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-750 text-xs font-medium transition"
+                        className="h-10 px-3.5 rounded-xl bg-slate-850 hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-semibold transition"
                       >
                         Tabbladen filteren ({selectedSheetNames.length})
                       </button>
@@ -1219,7 +1306,7 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
                   </div>
                   <button
                     onClick={handleProceedToPreview}
-                    className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold"
+                    className="h-10 px-5 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold text-xs shadow transition"
                   >
                     Controleer Gegevens & Duplicaten →
                   </button>
@@ -1356,17 +1443,17 @@ export const ParticipantsView: React.FC<ParticipantsViewProps> = ({
                   )}
                 </div>
 
-                <div className="flex justify-between pt-3 border-t border-slate-800">
+                <div className="flex items-center justify-between pt-4 border-t border-slate-800">
                   <button
                     onClick={() => setImportStep('mapping')}
-                    className="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 font-medium"
+                    className="h-10 px-4 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700 font-semibold text-xs transition"
                   >
                     Terug naar Koppeling
                   </button>
                   <button
                     onClick={handleConfirmImport}
                     disabled={isImporting || candidates.filter((c) => c.isValid).length === 0}
-                    className="px-6 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow"
+                    className="h-10 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-xs shadow-lg transition uppercase tracking-wider disabled:opacity-40"
                   >
                     {isImporting ? 'Importeren...' : 'Definitief Importeren'}
                   </button>

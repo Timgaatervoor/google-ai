@@ -198,25 +198,26 @@ export default function App() {
         </div>
       )}
 
-      {!isLeaderboardKiosk && <div className="sticky top-0 z-40 bg-slate-900/95 backdrop-blur border-b border-slate-800">
-        <Header
-          stationNavigation={<Navigation variant="stations" activeTab={displayedTab} onSelectTab={setCurrentTab} conflictCount={unresolvedConflictsCount} attentionCount={attentionCount} deviceConfig={deviceConfig} />}
-          event={event}
-          deviceConfig={deviceConfig}
-          pendingSyncCount={pendingSyncCount}
-          onOpenPreRaceCheck={() => setShowPreRaceModal(true)}
-          onOpenPrint={() => setShowPrintModal(true)}
-          onUnlockDevice={handleUnlockDevice}
-          isTestMode={event?.isTestMode ?? false}
-        />
-        <Navigation
-          activeTab={displayedTab}
-          onSelectTab={setCurrentTab}
-          conflictCount={unresolvedConflictsCount}
-          attentionCount={attentionCount}
-          deviceConfig={deviceConfig}
-        />
-      </div>}
+      {!isLeaderboardKiosk && (
+        <div className="sticky top-0 z-40 bg-slate-900/95 backdrop-blur border-b border-slate-800">
+          <Header
+            event={event}
+            deviceConfig={deviceConfig}
+            pendingSyncCount={pendingSyncCount}
+            onOpenPreRaceCheck={() => setShowPreRaceModal(true)}
+            onOpenPrint={() => setShowPrintModal(true)}
+            onUnlockDevice={handleUnlockDevice}
+            isTestMode={event?.isTestMode ?? false}
+          />
+          <Navigation
+            activeTab={displayedTab}
+            onSelectTab={setCurrentTab}
+            conflictCount={unresolvedConflictsCount}
+            attentionCount={attentionCount}
+            deviceConfig={deviceConfig}
+          />
+        </div>
+      )}
 
       {/* Main Content View */}
       <main className={isLeaderboardKiosk
